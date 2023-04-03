@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+html {
+    background: #DAF7DC;
+}
+
+#kontener {
+    width: 90%;
+    margin: auto;
+    font-family: "Tahoma", "sans-serif";
+    font-size: 1rem;
+}
+
+#naglowek {
+    width: 100%;
+    background: #336699;
+    text-align: center;
+    font-size: 2.5rem;
+    height: 150px;
+}
+
+#naglowek h1 {
+    margin: 0;
+    padding-top: 1rem;
+}
+
+#srodek {
+    margin-top: 1rem;
+}
+
+#stopka {
+    clear: both;
+    background: #2F4858;
+    color: white;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+#menu {
+    width: 10rem;
+    float: left;
+    margin-bottom: 1rem;
+}
+
+#newsy {
+    width: 10rem;
+    float : right;
+    /*float: top;*/
+    margin-bottom: 1rem;
+    background: #336699;
+    padding: 0 0.3rem 0.3rem;
+}
+
+#news1 {
+    border-style: solid;
+    border-width: thin;
+    background: #86BBD8;
+    padding: 0.2rem;
+}
+
+#news2 {
+    border-style: solid;
+    border-width: thin;
+    background: #86BBD8;
+    padding: 0.2rem;
+}
+
+
+#tresc {
+    background: #86BBD8;
+    text-align: justify;
+    padding: 0.5rem;
+    margin-left: 11rem;
+    margin-right: 11rem;
+    margin-bottom: 1rem;
+}
+
+#menu ul {
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    list-style: none;
+    font-size: 90%;
+}
+
+#menu a {
+    text-decoration: none;
+    color: white;
+    background: #2F4858;
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+}
+
+#menu a:hover {
+    color: black;
+    background: #86BBD8;
+}
+
+@media only screen and (max-width: 800px) {
+    #menu {
+        width: 100%;
+        padding: 0;
+    }
+
+    #tresc {
+        margin-left: 0;
+        clear: both;
+    }
+
+    #newsy {
+        width: 100%;
+        text-align: center;
+    }
+
+    #kontener {
+        min-width: 320px;
+        width: 100%;
+    }
+}
