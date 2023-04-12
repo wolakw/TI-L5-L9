@@ -39,6 +39,14 @@ public class Narzedzia {
         return szablon.replace("[[" + znacznik + "]]", wyjscie.toString());
     }
 
+    public static String skrypty(String szablon) throws IOException {
+        return szablon.replace("[[SKRYPTY]]", "<script type=\"text/javascript\" src=\"kwadratowe.js\"></script>");
+    }
+
+    public static String funkcje(String szablon) throws IOException {
+        return szablon.replace("[[FUNKCJE]]", "<body onload=\"funkcje(); zegarek(); setInterval(zegarek, 1000); podpiecie()\">");
+    }
+
     public static int parsujInteger(String wejscie, int domyslna) {
         int wyjscie = domyslna;
         try {

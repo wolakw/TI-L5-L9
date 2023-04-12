@@ -22,10 +22,15 @@ public class WW extends HttpServlet {
         strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
 
         String szablon = Narzedzia.pobierzSzablon("index.html", context);
+
+        szablon = Narzedzia.skrypty(szablon);
+        szablon = Narzedzia.funkcje(szablon);
+
         szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.html", context);
         szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);
         szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona+".html", context);
         szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
+
         out.println(szablon);
         out.close();
     }
