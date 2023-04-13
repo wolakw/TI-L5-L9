@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import pk.wieik.ti.model.Narzedzia;
+import pk.wieik.ti.model.WWuzytkownik;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +17,7 @@ public class WW extends HttpServlet {
         Integer wartosc = 0;
         Cookie[] ciastka = request.getCookies();
         Cookie licznikCiastko = new Cookie("licznik", "0");
-        for (Cookie Ciastko: ciastka) {
+        for (Cookie Ciastko : ciastka) {
             if (Ciastko.getName().equals("licznik"))
                 licznikCiastko = Ciastko;
         }
@@ -25,10 +26,10 @@ public class WW extends HttpServlet {
         } catch (NumberFormatException e) {
             wartosc = 0;
         }
-        wartosc ++;
+        wartosc++;
 
         Cookie licznik = new Cookie("licznik", wartosc.toString());
-        licznik.setMaxAge(60*60*24);
+        licznik.setMaxAge(60 * 60 * 24);
         response.addCookie(licznik);
 
         response.setContentType("text/html");
@@ -36,8 +37,31 @@ public class WW extends HttpServlet {
         ServletContext context = getServletContext();
         PrintWriter out = response.getWriter();
 
+        HttpSession sejsa = request.getSession();
+
+        String atrybut1 = (String) sejsa.getAttribute("atrybut1");
+        Integer atrybut2 = (Integer) sejsa.getAttribute("atrybut2");
+
+        if (atrybut1 == null)
+            atrybut1 = "";
+
+        if (atrybut2 == null)
+            atrybut2 = 0;
+
+        WWuzytkownik uzytkownik = (WWuzytkownik) sejsa.getAttribute("uzytnkownik");
+        if (uzytkownik == null) {
+            uzytkownik = new WWuzytkownik();
+            sejsa.setAttribute("uzytkownik", uzytkownik);
+        }
+
+        uzytkownik.setLogin("user");
+        uzytkownik.setUprawnienia(1);
+
         String strona = request.getParameter("strona");
-        strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
+        if (uzytkownik.getUprawnienia() > 0)
+            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia;ustawienia");
+        else
+            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
 
         String szablon = Narzedzia.pobierzSzablon("index.html", context);
 
@@ -46,10 +70,11 @@ public class WW extends HttpServlet {
 
         szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.html", context);
         szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);
-        szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona+".html", context);
+        szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona + ".html", context);
         szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
 
         out.println("licznik: " + wartosc);
+        out.println(uzytkownik);
         out.println(szablon);
         out.close();
 
