@@ -13,6 +13,24 @@ public class WW extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
+        Integer wartosc = 0;
+        Cookie[] ciastka = request.getCookies();
+        Cookie licznikCiastko = new Cookie("licznik", "0");
+        for (Cookie Ciastko: ciastka) {
+            if (Ciastko.getName().equals("licznik"))
+                licznikCiastko = Ciastko;
+        }
+        try {
+            wartosc = Integer.parseInt(licznikCiastko.getValue());
+        } catch (NumberFormatException e) {
+            wartosc = 0;
+        }
+        wartosc ++;
+
+        Cookie licznik = new Cookie("licznik", wartosc.toString());
+        licznik.setMaxAge(60*60*24);
+        response.addCookie(licznik);
+
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
         ServletContext context = getServletContext();
@@ -31,13 +49,14 @@ public class WW extends HttpServlet {
         szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona+".html", context);
         szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
 
+        out.println("licznik: " + wartosc);
         out.println(szablon);
         out.close();
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
-
     }
 }
