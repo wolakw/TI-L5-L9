@@ -39,8 +39,15 @@ public class Narzedzia {
         return szablon.replace("[[" + znacznik + "]]", wyjscie.toString());
     }
 
-    public static String skrypty(String szablon) throws IOException {
-        return szablon.replace("[[SKRYPTY]]", "<script type=\"text/javascript\" src=\"kwadratowe.js\"></script>");
+    public static String skrypty(String szablon, String wejscie) throws IOException {
+        String[] skrypty = wejscie.split(";");
+        String wyjscie = "";
+
+        for (int i = 0; i < skrypty.length; i++) {
+            wyjscie = wyjscie + "<script type=\"text/javascript\" src=\"" + skrypty[i] +".js\"></script>\n";
+        }
+
+        return szablon.replace("[[SKRYPTY]]", wyjscie);
     }
 
     public static String funkcje(String szablon) throws IOException {
