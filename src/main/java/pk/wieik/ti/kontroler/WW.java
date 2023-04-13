@@ -24,7 +24,7 @@ public class WW extends HttpServlet {
         String szablon = Narzedzia.pobierzSzablon("index.html", context);
 
         szablon = Narzedzia.skrypty(szablon, "pierwsze;kwadratowe");
-        szablon = Narzedzia.funkcje(szablon);
+        szablon = Narzedzia.funkcje(szablon, "podpiecie");
 
         szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.html", context);
         szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);

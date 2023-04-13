@@ -50,10 +50,18 @@ public class Narzedzia {
         return szablon.replace("[[SKRYPTY]]", wyjscie);
     }
 
-    public static String funkcje(String szablon) throws IOException {
-        return szablon.replace("[[FUNKCJE]]", "<body onload=\"funkcje(); zegarek(); setInterval(zegarek, 1000); podpiecie()\">");
-    }
+    public static String funkcje(String szablon, String wejscie) throws IOException {
+        String[] funkcje = wejscie.split(";");
+        String wyjscie = "<body onload=\"funkcje(); zegarek(); setInterval(zegarek, 1000); ";
 
+        for (int i = 0; i < funkcje.length; i++) {
+            wyjscie = wyjscie + funkcje[i] + "(); ";
+        }
+
+        wyjscie = wyjscie + "\">";
+
+        return szablon.replace("[[FUNKCJE]]", wyjscie);
+    }
     public static int parsujInteger(String wejscie, int domyslna) {
         int wyjscie = domyslna;
         try {
