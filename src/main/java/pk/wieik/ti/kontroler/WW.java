@@ -48,28 +48,31 @@ public class WW extends HttpServlet {
         if (atrybut2 == null)
             atrybut2 = 0;
 
-        WWuzytkownik uzytkownik = (WWuzytkownik) sejsa.getAttribute("uzytnkownik");
+        WWuzytkownik uzytkownik = (WWuzytkownik) sejsa.getAttribute("uzytkownik");
         if (uzytkownik == null) {
             uzytkownik = new WWuzytkownik();
             sejsa.setAttribute("uzytkownik", uzytkownik);
         }
 
-        uzytkownik.setLogin("user");
-        uzytkownik.setUprawnienia(1);
-
-        String strona = request.getParameter("strona");
-        if (uzytkownik.getUprawnienia() > 0)
-            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia;ustawienia");
-        else
-            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
+        //uzytkownik.setLogin("");
+        //uzytkownik.setUprawnienia(-1);
 
         String szablon = Narzedzia.pobierzSzablon("index.html", context);
+        String strona = request.getParameter("strona");
+
+        if (uzytkownik.getUprawnienia() > 0) {
+            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia;ustawienia");
+            szablon = Narzedzia.uzupelnij(szablon, "MENU", "menuLogged.html", context);
+        }
+        else {
+            strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
+            szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);
+        }
 
         szablon = Narzedzia.skrypty(szablon, "pierwsze;kwadratowe");
         szablon = Narzedzia.funkcje(szablon, "podpiecie");
 
         szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.html", context);
-        szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);
         szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona + ".html", context);
         szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
 

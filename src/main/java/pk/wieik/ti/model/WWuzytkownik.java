@@ -2,6 +2,7 @@ package pk.wieik.ti.model;
 
 public class WWuzytkownik {
     private String login = "";
+    private String haslo = "";
     private int uprawnienia = -1;
     // -1 użytkownik niezalogowany
     // 1 użytkownik zalogowany
@@ -28,6 +29,7 @@ public class WWuzytkownik {
     public String toString() {
         return "WWuzytkownik{" +
                 "login='" + login + '\'' +
+                ", hasło='" + haslo + '\'' +
                 ", uprawnienia=" + uprawnienia +
                 '}';
     }
