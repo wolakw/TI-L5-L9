@@ -17,6 +17,14 @@ public class WWuzytkownik {
         this.login = login;
     }
 
+    public String getHaslo() {
+        return haslo;
+    }
+
+    public void setHaslo(String haslo) {
+        this.haslo = haslo;
+    }
+
     public int getUprawnienia() {
         return uprawnienia;
     }

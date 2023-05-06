@@ -39,6 +39,14 @@ public class Narzedzia {
         return szablon.replace("[[" + znacznik + "]]", wyjscie.toString());
     }
 
+    public static String uzupelnij2(String szablon, String znacznik,
+                                   String plik, ServletContext context) throws IOException {
+        StringBuffer wyjscie = new StringBuffer("");
+        wyjscie.append(plik);
+
+        return szablon.replace("[[" + znacznik + "]]", wyjscie.toString());
+    }
+
     public static String skrypty(String szablon, String wejscie) throws IOException {
         String[] skrypty = wejscie.split(";");
         String wyjscie = "";
