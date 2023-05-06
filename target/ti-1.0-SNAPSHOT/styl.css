@@ -42,8 +42,20 @@ html {
     margin-bottom: 1rem;
 }
 
+#login {
+    border-style: solid;
+    border-width: thin;
+    background: #86BBD8;
+    padding: 0.2rem;
+    margin-top: 0.3rem;
+}
+
+.inputy {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
 #newsy {
-    width: 10rem;
     /*float : right;*/
     /*float: top;*/
     margin-bottom: 1rem;
