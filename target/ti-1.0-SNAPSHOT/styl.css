@@ -39,7 +39,7 @@ html {
 #menu {
     width: 10rem;
     float: left;
-    margin-bottom: 1rem;
+    /*margin-bottom: 1rem;*/
 }
 
 #login {
@@ -47,18 +47,18 @@ html {
     border-width: thin;
     background: #86BBD8;
     padding: 0.2rem;
-    margin-top: 0.3rem;
+    /*margin-top: 0.3rem;*/
 }
 
 .inputy {
-    width: 100%;
+    width: 95%;
     margin-bottom: 5px;
 }
 
 #newsy {
     /*float : right;*/
     /*float: top;*/
-    margin-bottom: 1rem;
+    /*margin-bottom: 1rem;*/
     background: #336699;
     padding: 0.3rem;
 }
@@ -68,7 +68,7 @@ html {
     border-width: thin;
     background: #86BBD8;
     padding: 0.2rem;
-    margin-top: 0.3rem;
+    /*margin-top: 0.3rem;*/
 }
 
 #news2 {

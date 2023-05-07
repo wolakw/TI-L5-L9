@@ -65,8 +65,8 @@ public class WW extends HttpServlet {
         szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona + ".html", context);
         szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
 
-        out.println("licznik: " + wartosc);
-        out.println(uzytkownik);
+//        out.println("licznik: " + wartosc);
+//        out.println(uzytkownik);
         out.println(szablon);
         out.close();
 
