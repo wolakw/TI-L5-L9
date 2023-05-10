@@ -39,7 +39,7 @@ html {
 #menu {
     width: 10rem;
     float: left;
-    /*margin-bottom: 1rem;*/
+    margin-bottom: 1rem;
 }
 
 #login {

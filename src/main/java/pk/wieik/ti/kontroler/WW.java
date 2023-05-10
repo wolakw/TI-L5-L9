@@ -55,15 +55,15 @@ public class WW extends HttpServlet {
         }
         else {
             strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
-            szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.html", context);
+            szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.jsp", context);
         }
 
         szablon = Narzedzia.skrypty(szablon, "pierwsze;kwadratowe");
         szablon = Narzedzia.funkcje(szablon, "podpiecie");
 
-        szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.html", context);
+        szablon = Narzedzia.uzupelnij(szablon, "NAGLOWEK", "naglowek.jsp", context);
         szablon = Narzedzia.uzupelnij(szablon, "TRESC", strona + ".html", context);
-        szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.html", context);
+        szablon = Narzedzia.uzupelnij(szablon, "STOPKA", "stopka.jsp", context);
 
 //        out.println("licznik: " + wartosc);
 //        out.println(uzytkownik);
@@ -84,23 +84,27 @@ public class WW extends HttpServlet {
             sejsa.setAttribute("uzytkownik", uzytkownik);
         }
 
-        String login = request.getParameter("l");
-        String pass = request.getParameter("p");
+        if(uzytkownik.getUprawnienia() == -1) {
+            String login = request.getParameter("l");
+            String pass = request.getParameter("p");
 
-        if(login.equals("user") && pass.equals("user")) {
-            uzytkownik.setLogin(login);
-            uzytkownik.setHaslo(pass);
-            uzytkownik.setUprawnienia(1);
-        } else if (login.equals("admin") && pass.equals("admin")) {
-            uzytkownik.setLogin(login);
-            uzytkownik.setHaslo(pass);
-            uzytkownik.setUprawnienia(2);
+            if (login.equals("user") && pass.equals("user")) {
+                uzytkownik.setLogin(login);
+                uzytkownik.setHaslo(pass);
+                uzytkownik.setUprawnienia(1);
+            } else if (login.equals("admin") && pass.equals("admin")) {
+                uzytkownik.setLogin(login);
+                uzytkownik.setHaslo(pass);
+                uzytkownik.setUprawnienia(2);
+            } else {
+                uzytkownik.setLogin("");
+                uzytkownik.setHaslo("");
+                uzytkownik.setUprawnienia(-1);
+            }
         } else {
-            uzytkownik.setLogin("");
-            uzytkownik.setHaslo("");
-            uzytkownik.setUprawnienia(-1);
+            sejsa.invalidate();
         }
 
-        response.sendRedirect("?strona=glowna");
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
     }
 }
