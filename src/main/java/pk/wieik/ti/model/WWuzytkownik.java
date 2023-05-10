@@ -12,12 +12,29 @@ public class WWuzytkownik {
     private String nazwisko = "";
     private int wiek = -1;
 
+    public String filtruj(String wejscie) {
+        StringBuffer filtrowanie = new StringBuffer();
+        char c;
+
+        for (int i=0; i<wejscie.length(); i++) {
+            c = wejscie.charAt(i);
+            switch (c) {
+                case  '<': filtrowanie.append("&lt;"); break;
+                case  '>': filtrowanie.append("&gt;"); break;
+                case  '"': filtrowanie.append("&quot;"); break;
+                case  '&': filtrowanie.append("&amp;"); break;
+                default: filtrowanie.append(c);
+            }
+        }
+        return filtrowanie.toString();
+    }
+
     public String getImie() {
         return imie;
     }
 
     public void setImie(String imie) {
-        this.imie = imie;
+        this.imie = filtruj(imie);
     }
 
     public String getNazwisko() {
@@ -25,7 +42,7 @@ public class WWuzytkownik {
     }
 
     public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
+        this.nazwisko = filtruj(nazwisko);
     }
 
     public int getWiek() {
