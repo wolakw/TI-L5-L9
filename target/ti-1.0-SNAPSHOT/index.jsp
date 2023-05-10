@@ -8,7 +8,7 @@
         session.setAttribute("uzytkownik", uzytkownik);
     }
     String strona = request.getParameter("strona");
-    if (uzytkownik.getUprawnienia() == 1)
+    if (uzytkownik.getUprawnienia() >= 1)
         strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia;ustawienia");
     else strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
 %>

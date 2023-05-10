@@ -21,14 +21,14 @@
         Login: <input type="text" id="log" class="inputy" name="l"><br/>
         Hasło: <input type="password" id="pass" class="inputy" name="p"><br/>
         <div id="przycisk">
-            <input type="submit" id="zaloguj" value="Zaloguj">
+            <input type="submit" id="zaloguj" value="Zaloguj" name="button">
         </div>
     </form>
     <% } else { %>
     <form id="login" action="WW" method="post">
         <div id="przycisk2">
             Jesteś zalgowany jako <b><%=uzytkownik.getLogin()%></b>
-            <input type="submit" id="wyloguj" value="Wyloguj">
+            <input type="submit" id="wyloguj" value="Wyloguj" name="button">
         </div>
     </form>
     <% } %>
