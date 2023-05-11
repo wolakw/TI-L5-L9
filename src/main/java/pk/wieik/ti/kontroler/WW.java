@@ -76,6 +76,7 @@ public class WW extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
 
+        ServletContext aplikacja = getServletContext();
         HttpSession sejsa = request.getSession();
 
         WWuzytkownik uzytkownik = (WWuzytkownik) sejsa.getAttribute("uzytkownik");
@@ -84,10 +85,15 @@ public class WW extends HttpServlet {
             sejsa.setAttribute("uzytkownik", uzytkownik);
         }
 
-        uzytkownik.uzytkownicy.put("user", new WWuzytkownik("user", "user", 1));
-        uzytkownik.uzytkownicy.put("user2", new WWuzytkownik("user2", "user2", 1));
-        uzytkownik.uzytkownicy.put("user3", new WWuzytkownik("user3", "user3", 2));
-        uzytkownik.uzytkownicy.put("admin", new WWuzytkownik("admin", "admin", 2));
+        HashMap<String,WWuzytkownik> uzytkownicy = (HashMap<String,WWuzytkownik>) aplikacja.getAttribute("uzytkownicy");
+        if(uzytkownicy == null) {
+            uzytkownicy = new HashMap<>();
+            uzytkownicy.put("user", new WWuzytkownik("user", "user", 1));
+            uzytkownicy.put("user2", new WWuzytkownik("user2", "user2", 1));
+            uzytkownicy.put("user3", new WWuzytkownik("user3", "user3", 2));
+            uzytkownicy.put("admin", new WWuzytkownik("admin", "admin", 2));
+        }
+        aplikacja.setAttribute("uzytkownicy",uzytkownicy);
 
         String button = request.getParameter("button");
         String login = request.getParameter("l");
@@ -95,7 +101,7 @@ public class WW extends HttpServlet {
         switch (button) {
             case "Zaloguj":
                 WWuzytkownik finalUzytkownik = uzytkownik;
-                uzytkownik.uzytkownicy.forEach((key, value) -> {
+                uzytkownicy.forEach((key, value) -> {
                     if (key.equals(login) && key.equals(value.getLogin()) && value.getHaslo().equals(pass)) {
                        finalUzytkownik.setLogin(login);
                        finalUzytkownik.setLogin(pass);
@@ -126,14 +132,25 @@ public class WW extends HttpServlet {
                 }
                 break;
             case "Zmień":
-                ServletContext aplikacja = getServletContext();
+                //ServletContext aplikacja = getServletContext();
                 String kolorTla = request.getParameter("k");
                 if (kolorTla == null) kolorTla = "";
                 aplikacja.setAttribute("kolorTla", kolorTla);
 
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/?strona=administracja"));
                 break;
+            case "Update":
+                String key = request.getParameter("userLogin");
+                String _newUpr = request.getParameter("uprawnienia");
+                int newUpr = Integer.parseInt(_newUpr);
+                WWuzytkownik updated = uzytkownicy.get(key);
+                if(updated != null) {
+                    updated.setUprawnienia(newUpr);
+                    uzytkownicy.put(key, updated);
+                    aplikacja.setAttribute("uzytkownicy", uzytkownicy);
+                }
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/?strona=administracja"));
+                break;
         }
-        //response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
     }
 }

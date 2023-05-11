@@ -13,8 +13,6 @@ public class WWuzytkownik {
     private String nazwisko = "";
     private int wiek = -1;
 
-    public HashMap<String, WWuzytkownik> uzytkownicy = new HashMap<>();
-
     public WWuzytkownik() {
     }
 
@@ -94,10 +92,6 @@ public class WWuzytkownik {
 
     public void setUprawnienia(int uprawnienia) {
         this.uprawnienia = uprawnienia;
-    }
-
-    public HashMap<String, WWuzytkownik> getUzytkownicy() {
-        return uzytkownicy;
     }
 
     @Override
