@@ -8,6 +8,7 @@ import pk.wieik.ti.model.WWuzytkownik;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 @WebServlet(name = "WW", value = "/WW")
 public class WW extends HttpServlet {
@@ -52,8 +53,7 @@ public class WW extends HttpServlet {
             strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia;ustawienia");
             szablon = Narzedzia.uzupelnij(szablon, "MENU", "menuLogged.html", context);
             szablon = Narzedzia.uzupelnij2(szablon, "USER", uzytkownik.getLogin(), context);
-        }
-        else {
+        } else {
             strona = Narzedzia.parsujStrone(strona, "glowna;kwadratowe;trzecia");
             szablon = Narzedzia.uzupelnij(szablon, "MENU", "menu.jsp", context);
         }
@@ -84,26 +84,24 @@ public class WW extends HttpServlet {
             sejsa.setAttribute("uzytkownik", uzytkownik);
         }
 
-        String button = request.getParameter("button");
+        uzytkownik.uzytkownicy.put("user", new WWuzytkownik("user", "user", 1));
+        uzytkownik.uzytkownicy.put("user2", new WWuzytkownik("user2", "user2", 1));
+        uzytkownik.uzytkownicy.put("user3", new WWuzytkownik("user3", "user3", 2));
+        uzytkownik.uzytkownicy.put("admin", new WWuzytkownik("admin", "admin", 2));
 
+        String button = request.getParameter("button");
+        String login = request.getParameter("l");
+        String pass = request.getParameter("p");
         switch (button) {
             case "Zaloguj":
-                String login = request.getParameter("l");
-                String pass = request.getParameter("p");
-
-                if (login.equals("user") && pass.equals("user")) {
-                    uzytkownik.setLogin(login);
-                    uzytkownik.setHaslo(pass);
-                    uzytkownik.setUprawnienia(1);
-                } else if (login.equals("admin") && pass.equals("admin")) {
-                    uzytkownik.setLogin(login);
-                    uzytkownik.setHaslo(pass);
-                    uzytkownik.setUprawnienia(2);
-                } else {
-                    uzytkownik.setLogin("");
-                    uzytkownik.setHaslo("");
-                    uzytkownik.setUprawnienia(-1);
-                }
+                WWuzytkownik finalUzytkownik = uzytkownik;
+                uzytkownik.uzytkownicy.forEach((key, value) -> {
+                    if (key.equals(login) && key.equals(value.getLogin()) && value.getHaslo().equals(pass)) {
+                       finalUzytkownik.setLogin(login);
+                       finalUzytkownik.setLogin(pass);
+                       finalUzytkownik.setUprawnienia(value.getUprawnienia());
+                    }
+                });
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
                 break;
             case "Wyloguj":

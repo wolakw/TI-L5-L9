@@ -1,5 +1,7 @@
 package pk.wieik.ti.model;
 
+import java.util.HashMap;
+
 public class WWuzytkownik {
     private String login = "";
     private String haslo = "";
@@ -7,10 +9,20 @@ public class WWuzytkownik {
     // -1 użytkownik niezalogowany
     // 1 użytkownik zalogowany
     // 2 administrator
-
     private String imie = "";
     private String nazwisko = "";
     private int wiek = -1;
+
+    public HashMap<String, WWuzytkownik> uzytkownicy = new HashMap<>();
+
+    public WWuzytkownik() {
+    }
+
+    public WWuzytkownik(String login, String haslo, int uprawnienia) {
+        this.login = login;
+        this.haslo = haslo;
+        this.uprawnienia = uprawnienia;
+    }
 
     public String filtruj(String wejscie) {
         StringBuffer filtrowanie = new StringBuffer();
@@ -82,6 +94,10 @@ public class WWuzytkownik {
 
     public void setUprawnienia(int uprawnienia) {
         this.uprawnienia = uprawnienia;
+    }
+
+    public HashMap<String, WWuzytkownik> getUzytkownicy() {
+        return uzytkownicy;
     }
 
     @Override
