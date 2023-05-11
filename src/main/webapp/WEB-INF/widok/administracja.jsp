@@ -9,39 +9,31 @@
   <div id="przycisk">
     <input type="submit" id="zmien" value="Zmień" name="button">
   </div>
-<%--  <% for (int i = 0; i < uzytkownik.uzytkownicy.size(); i++) { %>--%>
-<%--  <b>user</b>:<br/>--%>
-<%--  <input type="radio" id="uz" name="upr" value="u">--%>
-<%--  <label for="uz">Użytkownik</label>--%>
-<%--  <input type="radio" id="ad" name="upr" value="a">--%>
-<%--  <label for="ad">Administrator</label>--%>
-<%--  <input type="submit" id="zaloguj" value="Nadaj" name="button"><br>--%>
-<%--  <% } %>--%>
 </form>
 <%
   ServletContext aplikacja = request.getServletContext();
   HashMap<String,WWuzytkownik> uzytkownicy = (HashMap<String,WWuzytkownik>) aplikacja.getAttribute("uzytkownicy");
   for(Map.Entry<String,WWuzytkownik> entry : uzytkownicy.entrySet()){
-    WWuzytkownik user = entry.getValue();
-    String login = user.getLogin();
-    int uprawnienia = user.getUprawnienia();
+    WWuzytkownik wuzytkownik = entry.getValue();
+    String login = wuzytkownik.getLogin();
+    int uprawnienia = wuzytkownik.getUprawnienia();
 %>
 <form name="updateUser" method="post" action="WW">
   <input type="hidden" name="button" value="Update"  />
-  <input type="hidden" name="userLogin" value="<%=login%>"  />
-  <b><%=login%><b/>:<br>
+  <input type="hidden" name="uztk" value="<%=login%>"  />
+  <b><%=login%></b>:<br>
   <select name = "uprawnienia">
     <%
       if(uprawnienia == 1){
     %>
-    <option value = "1">User</option>
-    <option value = "2">Admin</option>
+    <option value ="1">Użytkownik</option>
+    <option value ="2">Administrator</option>
     <%
     }
     else{
     %>
-    <option value = "admin">Admin</option>
-    <option value = "user">User</option>
+    <option value ="1">Administrator</option>
+    <option value ="2">Użytkownik</option>
     <%
       }
     %>

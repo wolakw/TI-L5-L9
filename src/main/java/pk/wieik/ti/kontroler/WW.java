@@ -140,13 +140,13 @@ public class WW extends HttpServlet {
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/?strona=administracja"));
                 break;
             case "Update":
-                String key = request.getParameter("userLogin");
-                String _newUpr = request.getParameter("uprawnienia");
-                int newUpr = Integer.parseInt(_newUpr);
-                WWuzytkownik updated = uzytkownicy.get(key);
-                if(updated != null) {
-                    updated.setUprawnienia(newUpr);
-                    uzytkownicy.put(key, updated);
+                String key = request.getParameter("uztk");
+                String uprawnienia = request.getParameter("uprawnienia");
+                int uprawnieniaNowe = Integer.parseInt(uprawnienia);
+                WWuzytkownik nowy = uzytkownicy.get(key);
+                if(nowy != null) {
+                    nowy.setUprawnienia(uprawnieniaNowe);
+                    uzytkownicy.put(key, nowy);
                     aplikacja.setAttribute("uzytkownicy", uzytkownicy);
                 }
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/?strona=administracja"));
