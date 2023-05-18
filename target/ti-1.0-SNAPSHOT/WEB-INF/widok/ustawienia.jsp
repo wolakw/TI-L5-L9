@@ -7,6 +7,7 @@
     Imię: <input value="${uzytkownik.imie}" type="text" id="imie"  name="i"><br/>
     Nazwisko: <input value="${uzytkownik.nazwisko}" type="text" id="naz"  name="n"><br/>
     Wiek: <input value="${uzytkownik.wiekS}" type="number" id="wiek"  name="w"><br/>
+    Kolor: <input value="${applicationScope.kolorTla}" type="text" id="kolor"  name="k"><br/>
     <div id="przycisk">
         <input type="submit" id="zaloguj" value="Zapisz" name="button">
     </div>

@@ -12,6 +12,7 @@ public class WWuzytkownik {
     private String imie = "";
     private String nazwisko = "";
     private int wiek = -1;
+    private String kolor;
 
     public WWuzytkownik() {
     }
@@ -20,6 +21,16 @@ public class WWuzytkownik {
         this.login = login;
         this.haslo = haslo;
         this.uprawnienia = uprawnienia;
+    }
+
+    public WWuzytkownik(String login, String haslo, int uprawnienia, String imie, String nazwisko, int wiek, String kolor) {
+        this.login = login;
+        this.haslo = haslo;
+        this.uprawnienia = uprawnienia;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.wiek = wiek;
+        this.kolor = kolor;
     }
 
     public String filtruj(String wejscie) {
@@ -68,6 +79,14 @@ public class WWuzytkownik {
     public void setWiek(int wiek) {
         if (wiek >= 0)
             this.wiek = wiek;
+    }
+
+    public String getKolor() {
+        return kolor;
+    }
+
+    public void setKolor(String kolor) {
+        this.kolor = kolor;
     }
 
     public String getLogin() {

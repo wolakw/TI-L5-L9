@@ -88,10 +88,10 @@ public class WW extends HttpServlet {
         HashMap<String,WWuzytkownik> uzytkownicy = (HashMap<String,WWuzytkownik>) aplikacja.getAttribute("uzytkownicy");
         if(uzytkownicy == null) {
             uzytkownicy = new HashMap<>();
-            uzytkownicy.put("user", new WWuzytkownik("user", "user", 1));
-            uzytkownicy.put("user2", new WWuzytkownik("user2", "user2", 1));
-            uzytkownicy.put("user3", new WWuzytkownik("user3", "user3", 2));
-            uzytkownicy.put("admin", new WWuzytkownik("admin", "admin", 2));
+            uzytkownicy.put("user1", new WWuzytkownik("user1", "h1",1,"","",1,""));
+            uzytkownicy.put("user2", new WWuzytkownik("user2", "h2", 1,"","",1,""));
+            uzytkownicy.put("user3", new WWuzytkownik("user3", "h3", 2,"","",1,""));
+            uzytkownicy.put("admin", new WWuzytkownik("admin", "admin", 2,"","",1,""));
         }
         aplikacja.setAttribute("uzytkownicy",uzytkownicy);
 
@@ -118,6 +118,7 @@ public class WW extends HttpServlet {
                 String imie = request.getParameter("i");
                 String nazwisko = request.getParameter("n");
                 String wiek = request.getParameter("w");
+                String kolor = request.getParameter("k");
 
                 if (imie.equals("") || nazwisko.equals("") || wiek.equals("")) {
                     uzytkownik.setImie("");
@@ -128,6 +129,8 @@ public class WW extends HttpServlet {
                     uzytkownik.setImie(imie);
                     uzytkownik.setNazwisko(nazwisko);
                     uzytkownik.setWiek(wiekI);
+                    if (kolor == null) kolor = "";
+                    aplikacja.setAttribute("kolorTla", kolor);
                     response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/?strona=ustawienia"));
                 }
                 break;
